@@ -79,6 +79,9 @@ unsafe extern "C" {
         ram_threshold: c_int,
         msaa: c_int,
     ) -> GLboolean;
+    /// vitaShaRK: loads the runtime shader compiler (`libshacccg.suprx`) from `path`; 0 on success
+    /// (and on any later call once loaded), a negative SceKernel error otherwise.
+    pub fn shark_init(path: *const c_char) -> c_int;
     pub fn vglSwapBuffers(has_commondialog: GLboolean);
     pub fn vglWaitVblankStart(enable: GLboolean);
 

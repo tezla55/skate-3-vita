@@ -1,6 +1,6 @@
 # skate-3-vita
 
-> **About this fork:** it fixes the launch crash some consoles get (a data abort in SceGxm, issue #3). The upstream eboot is built as a *safe* app, which cannot read `ur0:`, so vitaGL never loads `libshacccg.suprx` and every shader fails to compile. This fork builds an *unsafe* app instead (needs "Enable unsafe homebrew" in HENkaku settings). Download the VPK from this fork's [Releases](https://github.com/tezla55/skate-3-vita/releases); everything else is unchanged.
+> **About this fork:** it fixes the launch crash some consoles get (a data abort in SceGxm, issue #3). The upstream eboot is built as a *safe* app, and a safe app cannot see `ur0:data`, which is the only place upstream looks for `libshacccg.suprx`. So the shader compiler never loads and every shader fails to compile. This fork builds an *unsafe* app (needs "Enable unsafe homebrew" in HENkaku settings), and it also looks for `libshacccg.suprx` in `ux0:data/` after `ur0:/data/` and `ur0:data/external/`. Download the VPK from this fork's [Releases](https://github.com/tezla55/skate-3-vita/releases); everything else is unchanged.
 
 A PS Vita Skate 3 port of the [skate-3-rust-engine](https://github.com/SK8-ENGINE/skate-3-rust-engine) from the Xbox 360 Skate 3.
 

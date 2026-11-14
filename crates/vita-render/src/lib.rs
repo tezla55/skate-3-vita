@@ -27,6 +27,16 @@ const RAM_THRESHOLD: i32 = 10 * 1024 * 1024;
 pub fn init() {
     use vgl::*;
     unsafe {
+        // Fork: load the shader compiler ourselves before vitaGL does. vitaGL only tries
+        // ur0:/data and ur0:data/external; many consoles keep libshacccg.suprx in ux0:data
+        // instead. Once one of these loads, vitaGL's own shark_init(NULL) returns 0 and uses it.
+        for path in [c"ur0:/data/libshacccg.suprx", c"ur0:data/external/libshacccg.suprx", c"ux0:data/libshacccg.suprx"] {
+            let r = shark_init(path.as_ptr());
+            println!("shader compiler {}: {:#010x}", path.to_str().unwrap_or("?"), r as u32);
+            if r >= 0 {
+                break;
+            }
+        }
         // Not a success flag: GL_TRUE means a smaller framebuffer than requested.
         if vglInitExtended(0, math::WIDTH, math::HEIGHT, RAM_THRESHOLD, SCE_GXM_MULTISAMPLE_NONE) != GL_FALSE {
             println!("vglInitExtended: fell back to a smaller framebuffer than {}x{}", math::WIDTH, math::HEIGHT);
