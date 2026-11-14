@@ -56,6 +56,12 @@ vitasdk-sys = { version = "0.3.3", features = ["SceCtrl_stub", "SceLibKernel_stu
 vita-newlib-shims = "0.3.1"
 
 [package.metadata.vita]
+# Build an UNSAFE self (no `-s`). cargo-vita marks the eboot safe by default, and a safe app is
+# sandboxed away from ur0: - but vitaGL only looks for the shader compiler at
+# ur0:/data/libshacccg.suprx and ur0:data/external/libshacccg.suprx. A safe build therefore never
+# loads SceShaccCg (sceKernelLoadStartModule -> 0x80010002), every shader compile returns NULL and
+# the first draw data-aborts in SceGxm (issue #3: R1 = R2 = 0x8b31). Measured on a 3.60 Vita.
+vita_make_fself_flags = []
 title_id = "SKTV00001"
 title_name = "Skate Vita"
 assets = "../../static"

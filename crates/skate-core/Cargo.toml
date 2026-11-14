@@ -24,6 +24,8 @@ kernel-bench = []
 # skate_vita addition (not in the reference): on-device test VPK.
 # build_std must match crates/skate-vita (cargo-vita reads it from the first package).
 [package.metadata.vita]
+# Unsafe self: see crates/skate-vita/Cargo.toml.
+vita_make_fself_flags = []
 title_id = "SKTV00002"
 title_name = "skate-core tests"
 build_std = "std,panic_abort,panic_unwind"

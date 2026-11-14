@@ -40,6 +40,8 @@ vita-newlib-shims = "0.3.1"
 # Runs as eboot.bin of the installed test app (scripts/vita-bench.py); this title is
 # only used if a VPK is built. build_std must match the other crates (cargo-vita).
 [package.metadata.vita]
+# Unsafe self: see crates/skate-vita/Cargo.toml.
+vita_make_fself_flags = []
 title_id = "SKTV00003"
 title_name = "skate sim bench"
 build_std = "std,panic_abort,panic_unwind"

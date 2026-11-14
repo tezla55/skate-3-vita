@@ -22,6 +22,8 @@ vita-newlib-shims = "0.3.1"
 # Runs as eboot.bin of the installed test app (scripts/vita-audio-bench.py). build_std must
 # match the other crates (cargo-vita).
 [package.metadata.vita]
+# Unsafe self: see crates/skate-vita/Cargo.toml.
+vita_make_fself_flags = []
 title_id = "SKTV00004"
 title_name = "skate audio bench"
 build_std = "std,panic_abort,panic_unwind"
